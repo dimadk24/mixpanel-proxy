@@ -1,0 +1,20 @@
+version: "3.8"
+
+name: mixpanel-proxy
+services:
+  web:
+    image: dimadk24/mixpanel-proxy:latest
+    build:
+      context: .
+      labels:
+        caddy: mixpanel-proxy.64.226.108.11.sslip.io
+        caddy.reverse_proxy: "{{upstreams 80}}"
+    networks:
+      - caddy
+    pull_policy: never
+
+networks:
+  app:
+  caddy:
+    name: caddy
+    external: true
