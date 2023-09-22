@@ -4,6 +4,7 @@ name: mixpanel-proxy
 services:
   web:
     image: dimadk24/mixpanel-proxy:latest
+    pull_policy: never
     build:
       context: .
       labels:
@@ -11,7 +12,7 @@ services:
         caddy.reverse_proxy: "{{upstreams 80}}"
     networks:
       - caddy
-    pull_policy: never
+    restart: unless-stopped
 
 networks:
   app:
